@@ -26,6 +26,6 @@ default['gl_chef_server']['user']['password'] = 'P@ssw0rd'
 default['gl_chef_server']['user']['key_path'] = "/root/#{node['gl_chef_server']['user']['username']}.pem"
 
 default['gl_chef_server']['org']['name'] = 'default'
-default['gl_chef_server']['org']['full_name'] = 'default_organization'
+default['gl_chef_server']['org']['full_name'] = 'Default'
 default['gl_chef_server']['org']['admins'] = ['glagasse']
 default['gl_chef_server']['org']['key_path'] = "/root/#{node['gl_chef_server']['org']['name']}-validator.pem"
