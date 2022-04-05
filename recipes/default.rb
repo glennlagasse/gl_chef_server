@@ -2,7 +2,7 @@
 # Cookbook:: gl_chef_server
 # Recipe:: default
 #
-# Copyright:: 2021, Glenn Lagasse
+# Copyright:: 2022, Glenn Lagasse
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,16 +18,26 @@
 
 include_recipe 'chef-server::default'
 
-chef_user node['gl_chef_server']['user']['username'] do
-  first_name node['gl_chef_server']['user']['first_name']
-  last_name node['gl_chef_server']['user']['last_name']
-  email node['gl_chef_server']['user']['email']
-  password node['gl_chef_server']['user']['password']
-  key_path node['gl_chef_server']['user']['key_path']
+edit_resource!(:chef_ingredient, 'chef-server') do
+  platform 'ubuntu'
+  platform_version '20.04'
+end if platform?('debian')
+
+user = node['gl_chef_server']['user']
+
+chef_user user['username'] do
+  serveradmin true
+  first_name user['first_name']
+  last_name user['last_name']
+  email user['email']
+  password user['password']
+  key_path user['key_path']
 end
 
-chef_org node['gl_chef_server']['org']['name'] do
-  org_full_name node['gl_chef_server']['org']['full_name']
-  admins node['gl_chef_server']['org']['admins']
-  key_path node['gl_chef_server']['org']['key_path']
+org = node['gl_chef_server']['org']
+
+chef_org org['name'] do
+  org_full_name org['full_name']
+  admins org['admins']
+  key_path org['key_path']
 end
